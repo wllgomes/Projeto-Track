@@ -16,3 +16,39 @@ O AWS WAF é fundamental para mitigar vulnerabilidades, bloqueando tráfego mali
 
 
 # Monitoramento
+
+Para o monitoramento podemos seguir um conjunto de práticas recomendadas que envolvam coleta de métricas, definição de alertas, visualização e utilização de ferramentas de monitoramento apropriadas.
+
+# 1. Identificação de métricas e Logs importantes
+    Infraestrutura:
+          
+          Utilização de CPU, memória e disco
+          Capacidade de armazenamento e IOPS
+          Latência e erros de rede
+          Saúde e status de instâncias de servidores virtuais e físicos
+          Saúde dos sistemas de armazenamento, como bancos de dados, filas e sistemas de arquivos
+    
+    Aplicação:
+
+          Tempo de resposta
+          Taxas de erro de transações e pedidos
+          Tráfego de usuários (sessões, número de usuários ativos)
+          Utilização de recursos por serviços específicos da aplicação
+          Logs de aplicativos para erros e mensagens de advetência
+
+  # 2. Ferramenta de Monitoramento
+  
+      Podemos utilizar as ferramentas de monitoramento Prometheus, Zabbix, Datadog, New Relic e Grafana. 
+      A escolha da ferramenta vai ser de acordo com a qual atender melhor a nossa expectativa para monitorar todo o ambiente. 
+
+  # 3. Configuração de Alertas
+
+      Podemos configurar alertas com base em métricas e logs que indicam problemas ponteciais ou reais. Por exemplo, podemos configurar os seguintes alertas:
+          Alta utilização de CPU
+          Erros frequentes no aplicativo
+          Disponibilidade do serviço
+          Violação de limites de tempo de resposta
+  
+  # 4. Visualização
+
+      Utilizaremos dashboards para visualizar métricas em tempo real e histórico com o Grafana ou Kibana ou as oferecidas por ferramentas de APM no qual podemos utilizar para criar visualizações personalizadas.
