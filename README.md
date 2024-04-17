@@ -13,3 +13,6 @@ O gerenciamento de DNS é realizado por meio do Amazon Route 53, que é configur
 
 Em termos de segurança, a aplicação incorpora o AWS WAF (Web Application Firewall), que permite a monitorização detalhada e o controle das solicitações HTTP e HTTPS dirigidas aos recursos, como o próprio CloudFront. 
 O AWS WAF é fundamental para mitigar vulnerabilidades, bloqueando tráfego malicioso e personalizando regras de segurança conforme as necessidades específicas da aplicação.
+
+
+# Monitoramento
