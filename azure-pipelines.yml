@@ -1,0 +1,60 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self
+
+- stage: UpdateInfrastructure
+    jobs:
+      - job: TerraformApply
+        pool:
+          vmImage: 'ubuntu-latest'
+        workspace:
+          clean: all
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@0
+            displayName: 'Install Terraform'
+            inputs:
+              terraformVersion: '1.3.6'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              backendType: 'azurerm'
+              backendAzureRmResourceGroupName: 'app-node-track'
+              backendAzureRmStorageAccountName: 'project-node'
+              backendAzureRmContainerName: 'project-node-track'
+              backendAzureRmKey: 'terraform.tfstate'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Validate'
+            inputs:
+              command: 'validate'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: 'plan'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Apply'
+            inputs:
+              command: 'apply'
+              commandOptions: '-auto-approve'
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '14.x'
+            displayName: 'Install Node.js'
+          - script: npm install
+            displayName: 'Install dependencies'
+          - script: npm test
+            displayName: 'Run tests'
+          - script: npm run build
+            displayName: 'Build application'
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)/build'
+              artifact: 'app-node-track'
+              publishLocation: 'pipeline'
